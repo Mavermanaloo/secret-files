@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Birthday Surprise 🎉</title>
+<link href="https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap" rel="stylesheet">
+<style>
+body{
+  margin:0;
+  padding:0;
+  overflow:hidden;
+  font-family: 'Courier Prime', monospace;
+  background:#000;
+  color:#0f0;
+    overflow-y: auto;
+  scroll-behavior: smooth;
+
+}
+
+/* Fullscreen glitch overlay */
+#glitchScreen{
+  display:none;
+  position:fixed;
+  top:0;
+  left:0;
+  width:100vw;
+  height:100vh;
+  background:#000;
+  color:#0f0;
+  z-index:9999;
+  overflow:hidden;
+  text-align:center;
+}
+
+/* Glitch text */
+.glitch-text{
+  font-size:50px;
+  position:absolute;
+  width:100%;
+  top:50%;
+  transform:translateY(-50%);
+  animation: flicker 0.1s infinite;
+}
+@keyframes flicker{
+  0%{opacity:0.2;}
+  50%{opacity:1;}
+  100%{opacity:0.2;}
+}
+
+/* Random scan lines */
+.scanline{
+  position:absolute;
+  width:100%;
+  height:2px;
+  background:#0f0;
+  opacity:0.2;
+  animation: scan 0.5s linear infinite;
+}
+@keyframes scan{
+  0%{top:0;}
+  100%{top:100%;}
+}
+
+/* Surprise section */
+#surprise{
+  display:none;
+  text-align:center;
+  background:#fff0f6;
+  padding:50px 20px 100px 20px; /* top, sides, bottom padding */
+  min-height:100vh;  /* ensures it at least fills screen */
+  height:auto;        /* allows it to grow for scrolling */
+}
+img{
+  width:220px;
+  margin:15px;
+  border-radius:15px;
+  box-shadow:0 0 20px rgba(0,0,0,0.3);
+  transition: transform 0.3s;
+}
+img:hover{ transform: scale(1.1); }
+video{
+  width:400px;
+  margin-top:20px;
+  border-radius:15px;
+  box-shadow:0 0 20px rgba(0,0,0,0.3);
+}
+</style>
+</head>
+<body>
+
+<!-- First page -->
+<div id="firstPage" style="text-align:center; padding-top:200px;">
+  <h1 id="typingMessage" style="color:#ff4b6e; font-size:50px;"></h1>
+  <button onclick="startGlitch()" style="margin-top:30px; font-size:25px;">Click to see your gift 🎁</button>
+</div>
+
+<!-- Glitch overlay -->
+<div id="glitchScreen">
+  <div class="glitch-text">SYSTEM BREACH DETECTED...</div>
+</div>
+
+<!-- Surprise -->
+<div id="surprise">
+  <h1>🎂 Happy Birthday! 🎂</h1>
+
+  <h2>Epic Memories 📸</h2>
+  <img src="k1.jpg">
+  <img src="k2.jpg">
+  <img src="k3.jpg">
+  <img src="k4.jpg">
+
+  <h2>Special Video 🎥</h2>
+  <video controls>
+    <source src="nabaliw.mp4" type="video/mp4">
+  </video>
+</div>
+
+<script>
+// Typing effect
+let message = "Oops… there’s more ❤️";
+let i = 0;
+function typeWriter(){
+  if(i < message.length){
+    document.getElementById("typingMessage").innerHTML += message.charAt(i);
+    i++;
+    setTimeout(typeWriter,100);
+  }
+}
+typeWriter();
+
+// Start glitch effect
+function startGlitch(){
+  document.getElementById("firstPage").style.display="none";
+  const glitch = document.getElementById("glitchScreen");
+  glitch.style.display="block";
+
+  // Add random scan lines
+  for(let j=0;j<50;j++){
+    let line = document.createElement("div");
+    line.classList.add("scanline");
+    line.style.animationDelay=(Math.random()*1)+"s";
+    line.style.opacity=Math.random()*0.3;
+    glitch.appendChild(line);
+  }
+
+  // Glitch duration before surprise
+  setTimeout(showSurprise,3000); // 3 seconds of glitch
+}
+
+// Show surprise
+function showSurprise(){
+  document.getElementById("glitchScreen").style.display="none";
+  const surprise = document.getElementById("surprise");
+  surprise.style.display="block";
+}
+</script>
+
+</body>
+</html>
